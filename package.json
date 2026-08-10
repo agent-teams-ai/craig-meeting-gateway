@@ -17,6 +17,7 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "test": "yarn workspaces run test",
+    "test:workflow-gates": "node --test scripts/workflow-gates.test.mjs",
     "lint": "yarn workspaces run lint",
     "lint:fix": "yarn workspaces run lint:fix",
     "lint:monorepo": "yarn manypkg check",
