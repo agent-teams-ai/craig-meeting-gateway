@@ -10,11 +10,4 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-    ignore:
-      - dependency-name: "node-fetch"
-      - dependency-name: "chalk"
-      - dependency-name: "react"
-      - dependency-name: "react-dom"
-      - dependency-name: "execa"
-      - dependency-name: "@headlessui/react"
-      - dependency-name: "eris"
+    open-pull-requests-limit: 0
