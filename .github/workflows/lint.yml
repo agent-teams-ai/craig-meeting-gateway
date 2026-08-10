@@ -1,6 +1,7 @@
 name: ESLint
 on:
   push:
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -21,3 +22,6 @@ jobs:
 
       - name: Run ESLint
         run: yarn lint
+
+      - name: Check workflow gates
+        run: yarn test:workflow-gates

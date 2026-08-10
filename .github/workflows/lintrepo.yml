@@ -5,6 +5,11 @@ on:
       - ".github/workflows/lintrepo.yml"
       - "apps/*/package.json"
       - "package.json"
+  pull_request:
+    paths:
+      - ".github/workflows/lintrepo.yml"
+      - "apps/*/package.json"
+      - "package.json"
   workflow_dispatch:
 
 jobs:
