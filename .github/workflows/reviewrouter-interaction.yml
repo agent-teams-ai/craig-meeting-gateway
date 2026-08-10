@@ -32,5 +32,5 @@ jobs:
       discussion_max_per_thread: ${{ vars.REVIEW_ROUTER_DISCUSSION_MAX_PER_THREAD || '5' }}
       discussion_timeout_seconds: ${{ vars.REVIEW_ROUTER_DISCUSSION_TIMEOUT_SECONDS || '60' }}
     secrets:
-      REVIEW_ROUTER_LEDGER_KEY: ${{ secrets.REVIEWROUTER_LEDGER_KEY }}
+      REVIEW_ROUTER_LEDGER_KEY: ${{ secrets.REVIEW_ROUTER_LEDGER_KEY }}
       CODEX_AUTH_JSON: ${{ secrets.REVIEWROUTER_CODEX_AUTH_JSON }}

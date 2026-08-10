@@ -90,7 +90,7 @@ test("ReviewRouter interaction is an exact thin reusable caller", async () => {
     "      discussion_max_per_pr: ${{ vars.REVIEW_ROUTER_DISCUSSION_MAX_PER_PR || '20' }}",
     "      discussion_max_per_thread: ${{ vars.REVIEW_ROUTER_DISCUSSION_MAX_PER_THREAD || '5' }}",
     "      discussion_timeout_seconds: ${{ vars.REVIEW_ROUTER_DISCUSSION_TIMEOUT_SECONDS || '60' }}",
-    "      REVIEW_ROUTER_LEDGER_KEY: ${{ secrets.REVIEWROUTER_LEDGER_KEY }}",
+    "      REVIEW_ROUTER_LEDGER_KEY: ${{ secrets.REVIEW_ROUTER_LEDGER_KEY }}",
     "      CODEX_AUTH_JSON: ${{ secrets.REVIEWROUTER_CODEX_AUTH_JSON }}",
   ]) {
     assert.ok(source.includes(expected), `missing caller contract: ${expected}`);
@@ -98,5 +98,6 @@ test("ReviewRouter interaction is an exact thin reusable caller", async () => {
 
   assert.doesNotMatch(source, /^    runs-on:/m);
   assert.doesNotMatch(source, /^    steps:/m);
+  assert.doesNotMatch(source, /secrets\.REVIEWROUTER_LEDGER_KEY/);
   assert.doesNotMatch(source, /\.reviewrouter-runtime|npm install|node \.reviewrouter-runtime/);
 });
