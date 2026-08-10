@@ -7,19 +7,16 @@ const workflows = [
     file: ".github/workflows/dryrun.yml",
     jobId: "build",
     jobName: "Build Apps",
-    mirrorPaths: true,
   },
   {
     file: ".github/workflows/lint.yml",
     jobId: "lint",
     jobName: "Lint source code",
-    mirrorPaths: false,
   },
   {
     file: ".github/workflows/lintrepo.yml",
     jobId: "check",
     jobName: "Lint monorepo",
-    mirrorPaths: true,
   },
 ];
 
@@ -36,14 +33,6 @@ function indentedBlock(source, header, indentation) {
   return nextHeader === -1 ? rest : rest.slice(0, nextHeader);
 }
 
-function eventPaths(onBlock, eventName) {
-  const eventBlock = indentedBlock(onBlock, eventName, 2);
-  const pathsBlock = indentedBlock(eventBlock, "paths", 4);
-  return [...pathsBlock.matchAll(/^ {6}-\s+"([^"]+)"\s*$/gm)].map(
-    (match) => match[1],
-  );
-}
-
 for (const workflow of workflows) {
   test(`${workflow.file} exposes ${workflow.jobName} on pull requests`, async () => {
     const source = await readFile(workflow.file, "utf8");
@@ -53,14 +42,19 @@ for (const workflow of workflows) {
     assert.match(onBlock, /^  push:\s*$/m);
     assert.match(onBlock, /^  pull_request:\s*$/m);
     assert.match(onBlock, /^  workflow_dispatch:\s*$/m);
+    assert.equal(
+      indentedBlock(onBlock, "pull_request", 2).trim(),
+      "",
+      "pull_request must be unfiltered so required checks always report",
+    );
+    assert.equal(
+      indentedBlock(source, "permissions", 0).trim(),
+      "contents: read",
+    );
 
     const jobBlock = indentedBlock(jobsBlock, workflow.jobId, 2);
     const jobName = jobBlock.match(/^ {4}name:\s+(.+)\s*$/m)?.[1];
     assert.equal(jobName, workflow.jobName);
-
-    if (workflow.mirrorPaths) {
-      assert.deepEqual(eventPaths(onBlock, "pull_request"), eventPaths(onBlock, "push"));
-    }
   });
 }
 
