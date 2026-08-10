@@ -20,7 +20,7 @@ const workflows = [
   },
 ];
 
-const interactionRuntimeSha = "5da51b7b71b1db9ce531f946ec2bb90411a31300";
+const interactionRuntimeSha = "6b35091c824b1d4d5ee6bf8316121ed08d3e4861";
 
 function indentedBlock(source, header, indentation) {
   const spaces = " ".repeat(indentation);
